@@ -1,0 +1,57 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" dir="ltr" lang="en-US">
+
+{pyro:theme:partial file="metadata"}
+
+<body id="top">
+
+<!-- Begin pageWrapper -->
+<div id="pageWrapper">
+{pyro:integration:analytics}
+<!-- Begin header -->
+<div id="header">
+	
+{pyro:theme:partial file="header"}
+</div>
+<!-- End header -->
+
+<!-- Begin nav -->
+<ul id="head-nav">
+{pyro:navigation:links group="header"}
+</ul>
+<!-- End nav -->
+
+<!-- Begin contentWrapper -->
+<div id="contentWrapper">
+
+<!-- Begin content -->
+<div id="content">
+	
+{pyro:theme:partial file="breadcrumbs"}
+
+{if $session->flashdata('notice')}
+<div class="notice-box">{$session->flashdata('notice')}</div>
+{/if}
+
+{if $session->flashdata('success')}
+<div class="success-box">{$session->flashdata('success')}</div>
+{/if}
+
+{if $session->flashdata('error')}
+<div class="error-box">{$session->flashdata('error')}</div>
+{/if}
+		
+<div class="post">
+	{pyro:template:body}
+	<br style="clear:both;" />
+</div>
+	
+</div>
+<!-- End content -->
+
+{pyro:theme:partial file="sidebar"}
+
+</div>
+<!-- End contentWrapper -->
+
+{pyro:theme:partial file="footer"}
