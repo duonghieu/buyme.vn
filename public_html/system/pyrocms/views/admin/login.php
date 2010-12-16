@@ -5,7 +5,7 @@
 	<meta http-equiv="X-UA-Compatible" content="IE=EmulateIE7" />
 	<title><?php echo $this->settings->site_name; ?> - <?php echo lang('login_title');?></title>
 	<?php echo css('admin/style.css'); ?>
-	<?php echo js('jquery/jquery-1.4.2.min.js'); ?>
+	<?php echo js('jquery/jquery.js'); ?>
 	<?php echo js('admin/jquery.uniform.min.js'); ?>
 	<?php echo js('admin/login.js'); ?>
 	
@@ -37,12 +37,12 @@
 			<ul>
 				<li>
 					<input type="text" name="email" value="Email Address" onblur="if (this.value == '') {this.value = 'Email Address';}"  onfocus="if (this.value == 'Email Address') {this.value = '';}" />
-					<img class="input-email" src="<?php echo $base_url;?>system/pyrocms/assets/img/admin/email-icon.png" alt="Email" />
+					<img class="input-email" src="<?php echo image_path('admin/email-icon.png');?>" alt="Email" />
 				</li>
 				
 				<li>
 					<input type="password" name="password" value="Enter Password" onblur="if (this.value == '') {this.value = 'Enter Password';}"  onfocus="if (this.value == 'Enter Password') {this.value = '';}"  />
-					<img class="input-password" src="<?php echo $base_url;?>system/pyrocms/assets/img/admin/lock-icon.png" alt="Password" />
+					<img class="input-password" src="<?php echo image_path('admin/lock-icon.png');?>" alt="Password" />
 				</li>
 				
 				<li><center><input class="button" type="submit" name="submit" value="Login" /></center></li>

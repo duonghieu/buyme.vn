@@ -24,14 +24,21 @@ class Plugin_Theme extends Plugin
 	 */
 	function partial()
 	{
-		$file = $this->attribute('file');
+		$name = $this->attribute('name');
+		$name = $this->attribute('file', $name); #deprecated
 
 		$data =& $this->load->_ci_cached_vars;
 
 		return $this->parser->parse_string($this->load->_ci_load(array(
-			'_ci_path' => $data['template_views'].'partials/'.$file.'.html',
+			'_ci_path' => $data['template_views'].'partials/'.$name.'.html',
 			'_ci_return' => TRUE
 		)), $data, TRUE, TRUE);
+	}
+
+	function path()
+	{
+		$data =& $this->load->_ci_cached_vars;
+		return dirname($data['template_views']).'/';
 	}
 
 	/**
@@ -64,7 +71,7 @@ class Plugin_Theme extends Plugin
 	 *
 	 * Usage:
 	 *
-	 * {pyro:theme:css file=""}
+	 * {pyro:theme:image file=""}
 	 *
 	 * @param	array
 	 * @return	array
@@ -97,10 +104,8 @@ class Plugin_Theme extends Plugin
 		$this->load->library('asset');
 
 		$file = $this->attribute('file');
-		$attributes = $this->attributes();
-		unset($attributes['file']);
 
-		return $this->asset->js($file, '_theme_', $attributes);
+		return $this->asset->js($file, '_theme_');
 	}
 }
 

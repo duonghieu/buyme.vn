@@ -1,6 +1,6 @@
 <?php defined('BASEPATH') or exit('No direct script access allowed');
 
-class Details_Files extends Module {
+class Module_Files extends Module {
 
 	public $version = '1.0';
 	
@@ -13,7 +13,10 @@ class Details_Files extends Module {
 				'de' => 'Dateien',
 				'nl' => 'Bestanden',
 				'fr' => 'Fichiers',
-				'zh' => '檔案'
+				'zh' => '檔案',
+				'it' => 'File',
+				'ru' => 'Файлы',
+				'ar' => 'الملفّات'
 			),
 			'description' => array(
 				'en' => 'Manages files and folders for your site.',
@@ -21,7 +24,10 @@ class Details_Files extends Module {
 				'de' => 'Verwalte Dateien und Verzeichnisse.',
 				'nl' => 'Beheer bestanden en folders op uw website.',
 				'fr' => 'Gérer les fichiers et dossiers de votre site.',
-				'zh' => '管理網站中的檔案與目錄'
+				'zh' => '管理網站中的檔案與目錄',
+				'it' => 'Gestisci file e cartelle del tuo sito.',
+				'ru' => 'Управление файлами и папками вашего сайта.',
+				'ar' => 'إدارة ملفات ومجلّدات موقعك.',
 			),
 			'frontend' => FALSE,
 			'backend'  => TRUE,
@@ -86,7 +92,17 @@ class Details_Files extends Module {
 	{
 		// Return a string containing help info
 		// You could include a file and return it here.
-		return "No documentation has been added for this module.";
+		return "<h4>Overview</h4><hr>
+		<p>The files module is an excellent way for the site admin to manage the files in use on the
+		site. All images or files that are inserted into pages or blog posts are stored here. You may upload
+		them directly from the WYSIWYG editor or you can upload them here and just insert them via WYSIWYG.</p>
+		<h6>Managing Folders</h6>
+		<p>After you create the top level folder or folders you may create as many subfolders as you need such as blog/images/screenshots/image.jpg
+		and pages/audio/sample.mp3. The folder names are for your use only, the name is not displayed in the download link on the front end.
+		To manage folders select Manage Folders in the left column, then click Edit on the folder you wish to change.</p>
+		<h6>Managing Files</h6>
+		<p>To upload or manage files select the folder name in the left column. If the file is in a subfolder just choose the parent. Once you are
+		in the parent folder you can choose the subfolder and filter by file type with the dropdowns at the top of the screen.</p>";
 	}
 }
 /* End of file details.php */

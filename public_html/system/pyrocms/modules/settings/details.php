@@ -1,6 +1,6 @@
 <?php defined('BASEPATH') or exit('No direct script access allowed');
 
-class Details_Settings extends Module {
+class Module_Settings extends Module {
 
 	public $version = '0.4';
 	
@@ -15,7 +15,9 @@ class Details_Settings extends Module {
 				'de' => 'Einstellungen',
 				'pl' => 'Ustawienia',
 				'br' => 'Configurações',
-				'zh' => '網站設定'
+				'zh' => '網站設定',
+				'it' => 'Impostazioni',
+				'ru' => 'Настройки'
 			),
 			'description' => array(
 				'en' => 'Allows administrators to update settings like Site Name, messages and email address, etc.',
@@ -25,7 +27,9 @@ class Details_Settings extends Module {
 				'de' => 'Erlaubt es Administratoren die Einstellungen der Seite wie Name und Beschreibung zu ändern.',
 				'pl' => 'Umożliwia administratorom zmianę ustawień strony jak nazwa strony, opis, e-mail administratora, itd.',
 				'br' => 'Permite com que administradores e a equipe consigam trocar as configurações do website incluindo o nome e descrição.',
-				'zh' => '網站管理者可更新的重要網站設定。例如：網站名稱、訊息、電子郵件等。'
+				'zh' => '網站管理者可更新的重要網站設定。例如：網站名稱、訊息、電子郵件等。',
+				'it' => 'Permette agli amministratori di aggiornare impostazioni quali Nome del Sito, messaggi e indirizzo email, etc.',
+				'ru' => 'Управление настройками сайта - Имя сайта, сообщения, почтовые адреса и т.п.'
 			),
 			'frontend' => FALSE,
 			'backend'  => TRUE,
@@ -63,7 +67,7 @@ class Details_Settings extends Module {
 			 ('server_email','Server E-mail','All e-mails to users will come from this e-mail address.','text','admin@localhost','','','1','1',''),
 			 ('meta_topic','Meta Topic','Two or three words describing this type of company/website.','text','Content Management','','','0','1',''),
 			 ('currency','Currency','The currency symbol for use on products, services, etc.','text','&pound;','','','1','1',''),
-			 ('dashboard_rss', 'Dashboard RSS Feed', 'Link to an RSS feed that will be displayed on the dashboard.', 'text', 'http://feeds.feedburner.com/pyrocms-installed', '', '', 0, 0, ''),
+			 ('dashboard_rss', 'Dashboard RSS Feed', 'Link to an RSS feed that will be displayed on the dashboard.', 'text', 'http://feeds.feedburner.com/pyrocms-installed', '', '', 0, 1, ''),
 			 ('dashboard_rss_count', 'Dashboard RSS Items', 'How many RSS items would you like to display on the dashboard ? ', 'text', '5', '5', '', 1, 1, ''),
 			 ('frontend_enabled','Site Status','Use this option to the user-facing part of the site on or off. Useful when you want to take the site down for maintenence','radio','1','','1=Open|0=Closed','1','1',''),
 			 ('unavailable_message','Unavailable Message','When the site is turned off or there is a major problem, this message will show to users.','textarea','Sorry, this website is currently unavailable.','','','0','1',''),
@@ -73,7 +77,9 @@ class Details_Settings extends Module {
 			 ('rss_feed_items','Feed item count','How many items should we show in RSS/news feeds?','select','25','','10=10|25=25|50=50|100=100','1','1',''),
 			 ('require_lastname','Require last names?','For some situations, a last name may not be required. Do you want to force users to enter one or not?','radio','1','','1=Required|0=Optional','1','1',''),
 			 ('enable_profiles','Enable profiles','Allow users to add and edit profiles.','radio','1','','1=Enabled|0=Disabled','1','1','users'),
-			 ('google_analytic','Google Analytic','Enter your analytic key to activate Google Analytic.','text','','','','0','1','integration'),
+			 ('ga_email','Google Analytic E-mail','E-mail address used for Google Analytics, we need this to show the graph on the dashboard.','text','','','','0','1','integration'),
+			 ('ga_password','Google Analytic Password','Google Analytics password. This is also needed this to show the graph on the dashboard.','password','','','','0','1','integration'),
+			 ('ga_profile','Google Analytic Key','Enter your Google Analytic Tracking Code to activate Google Analytics view data capturing. Example: UA-19483569-6','text','','','','0','1','integration'),
 			 ('twitter_username','Username','Twitter username.','text','','','','0','1','twitter'),
 			 ('twitter_consumer_key','Consumer Key','Twitter consumer key.','text','','','','0','1','twitter'),
 			 ('twitter_consumer_key_secret','Consumer Key Secret','Twitter consumer key secret.','text','','','','0','1','twitter'),
@@ -86,9 +92,9 @@ class Details_Settings extends Module {
 			 ('mail_protocol', 'Mail Protocol', 'Select desired email protocol.', 'select', 'mail', 'mail', 'mail=Mail|sendmail=Sendmail|smtp=SMTP', '1', '1', ''),
 			 ('mail_sendmail_path', 'Sendmail Path', 'Path to server sendmail binary.', 'text', '', '', '', '0', '1', ''),
 			 ('mail_smtp_host', 'SMTP Host Name', 'The host name of your smtp server.', 'text', '', '', '', '0', '1', ''),
-			 ('mail_smtp_user', 'SMTP User Name', 'SMPT user name.', 'text', '', '', '', '0', '1', ''),
-			 ('mail_smtp_pass', 'SMTP Password', 'SMPT password.', 'text', '', '', '', '0', '1', ''),
-			 ('mail_smtp_port', 'SMTP Port', 'SMPT port number.', 'text', '', '', '', '0', '1', ''),
+			 ('mail_smtp_user', 'SMTP User Name', 'SMTP user name.', 'text', '', '', '', '0', '1', ''),
+			 ('mail_smtp_pass', 'SMTP Password', 'SMTP password.', 'text', '', '', '', '0', '1', ''),
+			 ('mail_smtp_port', 'SMTP Port', 'SMTP port number.', 'text', '', '', '', '0', '1', ''),
 			 ('version', 'Version', '', 'text', 'v0.9.8', '".CMS_VERSION."', '', '0', '0', '');
 		";
 		

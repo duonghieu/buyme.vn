@@ -1,4 +1,4 @@
-<?php  if ( ! defined('BASEPATH')) exit('No direct script access allowed');
+<?php defined('BASEPATH') OR exit('No direct script access allowed');
 
 /*
 |--------------------------------------------------------------------------
@@ -111,7 +111,7 @@ unset($base_uri, $base_url);
 |
 */
 
-define('CMS_VERSION', '1.0.0-beta2');
+define('CMS_VERSION', '1.0.0');
 
 /*
 |--------------------------------------------------------------------------
@@ -122,7 +122,7 @@ define('CMS_VERSION', '1.0.0-beta2');
 |
 */
 
-define('CMS_DATE', '19/10/2010');
+define('CMS_DATE', '26/11/2010');
 
 /* End of file constants.php */
 /* Location: ./system/application/config/constants.php */

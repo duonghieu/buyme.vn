@@ -5,7 +5,7 @@
 	<?php endif; ?>
 
 
-		<?php echo form_open($this->uri->uri_string(), 'class="crud"'); ?>
+		<?php echo form_open(uri_string(), 'class="crud"'); ?>
 		<?php echo form_hidden('parent_id', (@$page->parent_id == '')? 0 : $page->parent_id); ?>
 
 		<div class="tabs">
@@ -79,7 +79,7 @@
 					</li>
 					<li class="even">
 						<label for="meta_description"><?php echo lang('pages.meta_desc_label');?></label>
-						<?php echo form_textarea(array('name' => 'meta_description', 'value' => $page->meta_description, 'rows' => 5, 'style' => "margin-left: 160px;")); ?>
+						<?php echo form_textarea(array('name' => 'meta_description', 'value' => $page->meta_description, 'rows' => 5)); ?>
 					</li>
 				</ul>
 

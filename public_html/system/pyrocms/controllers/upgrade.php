@@ -7,7 +7,7 @@
  */
 class Upgrade extends Controller
 {
-	private $versions = array('0.9.9.1', '0.9.9.2', '0.9.9.3', '0.9.9.4', '0.9.9.5', '0.9.9.6', '0.9.9.7', '1.0.0-beta1', '1.0.0-beta2');
+	private $versions = array('0.9.9.1', '0.9.9.2', '0.9.9.3', '0.9.9.4', '0.9.9.5', '0.9.9.6', '0.9.9.7', '1.0.0-beta1', '1.0.0-beta2', '1.0.0');
 
 	private $_output = '';
 
@@ -83,10 +83,165 @@ class Upgrade extends Controller
 		echo $this->_output;
  	}
 
+	function upgrade_100()
+	{
+		$this->db->query('ALTER TABLE `news`
+							DROP INDEX `title` ,
+							ADD UNIQUE INDEX `slug` USING BTREE (`slug`);');
+
+		$this->db->where('1', 1, FALSE);
+		$this->db->delete('modules');
+
+		// Loop through directories that hold modules
+		$is_core = TRUE;
+
+		foreach (array(APPPATH, ADDONPATH) as $directory)
+    	{
+    		// Loop through modules
+	        foreach (glob($directory.'modules/*', GLOB_ONLYDIR) as $module_name)
+	        {
+				$slug = basename($module_name);
+
+				$this->_output .=  'Re-indexing new module: <strong>' . $slug .'</strong>.<br/>';
+
+				$path = $is_core ? APPPATH : ADDONPATH;
+
+				// Before we can install anything we need to know some details about the module
+				$details_file = $path . 'modules/' . $slug . '/details'.EXT;
+
+				// Check the details file exists
+				if ( ! is_file($details_file))
+				{
+					$this->_output .= '<span style="color:red">Error with <strong>' . $slug .'</strong>: File '.$details_file.' does not exist.</span><br/>';
+					continue;
+				}
+
+				// Sweet, include the file
+				include_once $details_file;
+
+				// Now call the details class
+				$class_name = 'Module_'.ucfirst(strtolower($slug));
+
+				if ( ! class_exists($class_name))
+				{
+					$this->_output .= '<span style="color:red">Error with <strong>' . $slug .'</strong>: Class '.$class_name.' does not exist in file '.$details_file.'.</span><br/>';
+					continue;
+				}
+
+				$details_class = new $class_name;
+
+				// Get some basic info
+				$module = $details_class->info();
+
+				// Looks like it installed ok, add a record
+				$this->db->insert('modules', array(
+					'name' => serialize($module['name']),
+					'slug' => $slug,
+					'version' => $details_class->version,
+					'description' => serialize($module['description']),
+					'skip_xss' => !empty($module['skip_xss']),
+					'is_frontend' => !empty($module['frontend']),
+					'is_backend' => !empty($module['backend']),
+					'menu' => !empty($module['menu']) ? $module['menu'] : FALSE,
+					'enabled' => TRUE,
+					'installed' => TRUE,
+					'is_core' => $is_core
+				));
+			}
+
+			// Going back around, 2nd time is addons
+			$is_core = FALSE;
+        }
+
+		if ($page_layouts = $this->db->get('page_layouts')->result())
+		{
+			$this->_output .= 'Re-writing page layouts to use new tags.<br />';
+
+			foreach ($page_layouts as $layout)
+			{
+				$layout->body = str_replace(array(
+					'{$page.body}',
+					'{$page.title}'
+				), array(
+					'{pyro:page:body}',
+					'{pyro:page:title}'
+				), $layout->body);
+
+				$this->db
+					->where('id', $layout->id)
+					->update('page_layouts', array('body' => $layout->body));
+			}
+		}
+
+		// Does a table contain a field?
+		if ($pages = $this->db->get('revisions')->result())
+		{
+			$this->_output .= 'Re-writing old style links to use the new pages plugin.<br />';
+
+			foreach ($pages as $revision)
+			{
+				preg_match_all('/\{page_url(\[|\()([0-9]+)(\]|\))\}/', $revision->body, $tags);
+
+				$replace_from = $replace_to = array();
+
+				for ($i = 0; $i < count($tags[0]);++ $i)
+				{
+					$replace_from[] = $tags[0][$i];
+					$replace_to[] = '{pyro:pages:url id=\''.$tags[2][$i].'\'}';
+				}
+
+				$replace_from AND $revision->body = str_replace($replace_from, $replace_to, $revision->body);
+
+				$this->db
+					->where('id', $revision->id)
+					->update('revisions', array('body' => $revision->body));
+			}
+		}
+
+		$this->cache->delete_all('pages_m');
+		
+		$this->_output .= 'Adding "class" field to navigation.<br/>';
+
+		// Not a foolproof method of column detection, but unless they have no entries in the db it'll be fine
+		$nav = $this->db->get('navigation_links', 1)->row();
+
+		if ( ! isset($nav->class))
+		{
+			$this->db->query("ALTER TABLE `navigation_links`
+				ADD `class` VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL default '' AFTER `target`");
+
+			$this->cache->delete_all('navigation_m');
+		}
+
+		$this->_output .= 'Setting "Dashboard RSS Feed" will now show in the Settings page.<br/>';
+
+		$this->db
+			->where('slug', 'dashboard_rss')
+			->update('settings', array('is_gui' => 1));
+
+		//fix the unserialize() error
+		$this->_output .= 'Correcting translation errors in the redirects module.<br />';
+
+		$this->db
+			->where('slug', 'redirects')
+			->update('modules', array('description' => 'a:3:{s:2:"nl";s:38:"Verwijs vanaf een URL naar een andere.";s:2:"en";s:33:"Redirect from one URL to another.";s:2:"fr";s:34:"Redirection d\'une URL à un autre.";}'));
+
+		// move newsletters to utilities
+		$this->_output .= 'Moving Newsletter module to Utilities menu.<br />';
+
+		$this->db->where('slug', 'newsletters')
+				->update('modules', array('menu'=>'utilities'));
+
+		// put the missing groups module record back in the modules table
+		$this->_output .= 'Reactivating the groups module.<br />';
+
+		return TRUE;
+	}
+
 	function upgrade_100beta2()
 	{
 		// Does a table contain a field?
-		if( ! isset($this->db->limit(1)->get('pages')->row()->js))
+		if ( ! isset($this->db->limit(1)->get('pages')->row()->js))
 		{
 			$this->_output .= 'Adding missing pages.js field.<br />';
 
@@ -108,7 +263,6 @@ class Upgrade extends Controller
 
 			$this->_output .= 'Clearing page cache.<br/>';
 			$this->cache->delete_all('pages_m');
-
 		}
 
 		$this->_output .= 'Moving Google Tracking code from Comments to Integration.<br/>';
@@ -134,7 +288,7 @@ class Upgrade extends Controller
 			//get all the images and put them in the files table
 			$asset_images = $this->db->get('asset')->result();
 
-			foreach($asset_images as $image)
+			foreach ($asset_images as $image)
 			{
 				$this->db->insert('files', array(
 					'folder_id' 	=> $folder,
@@ -152,13 +306,13 @@ class Upgrade extends Controller
 				));
 
 				//copy image to files folder
-				copy(APPPATH.'uploads/assets/'.$image->id.$image->extension, './uploads/files/'.$image->filename);
+				copy('./uploads/assets/'.$image->id.$image->extension, './uploads/files/'.$image->filename);
 
 			}
 			//all good, drop the old assets tables
 			$this->dbforge->drop_table('asset');
 			$this->dbforge->drop_table('asset_folder');
-            
+
             $this->_output .= '<span style="color:#339999"> -- Assets images were successfully moved to Files but you will need to re-insert all images in your pages using the wysiwyg editor.</span><br/>';
 		}
 		// ------------End Assets conversion ----------------
@@ -178,6 +332,14 @@ class Upgrade extends Controller
 			)
 		));
 
+		$this->dbforge->modify_column('settings', array(
+			'type' 	=> 	array(
+				'name' => 'type',
+				'type' => 'varchar',
+				'constraint' => '20',
+			)
+		));
+
 		$this->dbforge->add_column('modules', array(
 			'installed' 	=>	array(
 				'type' => 'tinyint',
@@ -187,43 +349,24 @@ class Upgrade extends Controller
 		));
 
 		$this->dbforge->drop_column('modules', 'controllers');
-		
+
 		//get rid of old modules and modules that need to be reinstalled
 		$this->db->delete('modules', array('slug' => 'permissions'));
 		$this->db->delete('modules', array('slug' => 'categories'));
 		$this->db->delete('modules', array('slug' => 'twitter'));
 		$this->db->delete('modules', array('slug' => 'tinycimm'));
-		
 
 		// ---- now install any new modules -----------------
-
-		$this->load->model('modules/module_m');
-
-		//get the slugs of all modules in the modules table
-		$all_modules = $this->module_m->get_all();
-		foreach($all_modules as $mod)
-		{
-			$slugs[] = $mod['slug'];
-		}
-		//add core modules that aren't in the modules table
-		$slugs[] = 'groups';
-
-    	// Loop through directories that hold modules
 		$is_core = TRUE;
-
 		foreach (array(APPPATH, ADDONPATH) as $directory)
     	{
     		// Loop through modules
-	        foreach(glob($directory.'modules/*', GLOB_ONLYDIR) as $module_name)
+	        foreach (array('categories', 'files', 'permissions', 'galleries', 'groups', 'redirects') as $slug)
 	        {
-				$slug = basename($module_name);
-
 				//don't reinstall a module
-				if(in_array($slug, $slugs)) continue;
+				if ( ! is_dir($directory.'modules/'.$slug)) continue;
 
-				$this->_output .=  'Installing new module: <strong>' . $slug .'</strong>.<br/>';
-
-				$this->module_m->install($slug, $is_core);
+				echo 'Installing new module: <strong>' . $slug .'</strong>.<br/>';
 
 				$path = $is_core ? APPPATH : ADDONPATH;
 
@@ -241,7 +384,7 @@ class Upgrade extends Controller
 				include_once $details_file;
 
 				// Now call the details class
-				$class_name = 'Details_'.ucfirst($slug);
+				$class_name = 'Module_'.ucfirst(strtolower($slug));
 
 				if ( ! class_exists($class_name))
 				{
@@ -250,42 +393,31 @@ class Upgrade extends Controller
 				}
 
 				$details_class = new $class_name;
-				
-				// Get some basic info
-				$module = $details_class->info();
 
-				// Now lets set some details ourselves
-				$module['slug'] = $slug;
-				$module['version'] = $details_class->version;
-				$module['enabled'] = TRUE;
-				$module['installed'] = TRUE;
-				$module['is_core'] = $is_core;
+				// TURN ME ON BABY!
+				$this->db->where('slug', $slug)->update('modules', array('enabled' => 1));
 
-				// Looks like it installed ok, add a record
-				$this->module_m->add($module);
+				// Run the install method to get it into the database
+				$details_class->install();
 			}
 
 			// Going back around, 2nd time is addons
 			$is_core = FALSE;
         }
 
-		
-		// ---- now let's start upgrading the existing modules
-
-
 		// ---- Settings ------------------------------------
 
 		// Rename tracking code setting
 		$this->db
 			->where('slug', 'google_analytic')
-			->update('settings', array('slug' => 'ga_tracking', 'title' => 'Google Tracking Code', 'description' => 'Enter your Google Anyaltic Tracking Code to activate Google Analytics view data capturing.'));
+			->update('settings', array('slug' => 'ga_tracking', 'title' => 'Google Tracking Code', 'description' => 'Enter your Google Analytic Tracking Code to activate Google Analytics view data capturing.'));
 
 		$this->_output .= 'Adding more Google Analytic Settings.<br/>';
 
 		$this->db->insert('settings', array(
 			'slug' => 'ga_email',
 			'title' => 'Google Analytic E-mail',
-			'description' => 'E-mail address used for Google Analytics, we need this to show the grpah on the dashboard.',
+			'description' => 'E-mail address used for Google Analytics, we need this to show the graph on the dashboard.',
 			'`default`' => '',
 			'`value`' => '',
 			'type' => 'text',
@@ -322,64 +454,64 @@ class Upgrade extends Controller
 		));
 
 		// ---- Widgets -------------------------------------
-		
+
 		$this->db
 			->where('slug', 'widgets')
 			->update('modules', array('menu'=>'content'));
-				
+
 		// ---- / End Widgets -------------------------------
-		
+
 		// ---- Variables -----------------------------------
-		
+
 		$this->db->where('slug', 'variables')
 				->update('modules', array('menu'=>'content'));
-				
+
 		// ---- / End Variables -----------------------------
-		
+
 		// ---- Newsletters ---------------------------------
-		
+
 		$this->db->where('slug', 'newsletters')
 				->update('modules', array('menu'=>'users'));
-				
+
 		// ---- / End Newsletters ---------------------------
-		
+
 		// ---- Navigation ----------------------------------
-		
+
 		$this->db->where('slug', 'navigation')
 				->update('modules', array('menu'=>'design'));
-				
+
 		// ---- / End Navigation ----------------------------
-		
+
 		// ---- Themes --------------------------------------
-		
+
 		$this->db->where('slug', 'themes')
 				->update('modules', array('menu'=>'design'));
-				
+
 		// ---- / End Themes --------------------------------
-		
+
 		// ---- Comments ------------------------------------
 
 		$this->_output .= "Adding/updating comment settings.<br/>";
-		
+
 		// set module for moderate_comments to comments
 		$this->db->where('slug', 'moderate_comments')
 				->update('settings', array('module'=>'comments'));
-		
+
 		$comment_sort_setting = "
 			INSERT INTO `settings` (`slug`, `title`, `description`, `type`, `default`, `value`, `options`, `is_required`, `is_gui`, `module`) VALUES
 			 ('comment_order', 'Comment Order', 'Sort order in which to display comments.', 'select', 'ASC', 'ASC', 'ASC=Oldest First|DESC=Newest First', '1', '1', 'comments')
 			 ";
-		
+
 		$this->db->query($comment_sort_setting);
-		
+
 		// set menu location
 		$this->db->where('slug', 'comments')
 				->update('modules', array('menu'=>'content'));
-		
+
 		// ---- / End Comments ------------------------------
-		
+
 		// ---- Adding SMTP support for emails
-		
+
 		$insert_mail_settings = "
 			INSERT INTO `settings` (`slug`, `title`, `description`, `type`, `default`, `value`, `options`, `is_required`, `is_gui`, `module`)
 			VALUES ('mail_protocol', 'Mail Protocol', 'Select desired email protocol.', 'select', 'mail', 'mail', 'mail=Mail|sendmail=Sendmail|smtp=SMTP', '1', '1', ''),
@@ -387,52 +519,45 @@ class Upgrade extends Controller
 			('mail_smtp_host', 'SMTP Host Name', 'The host name of your smtp server.', 'text', '', '', '', '0', '1', ''),
 			('mail_smtp_user', 'SMTP User Name', 'SMPT user name.', 'text', '', '', '', '0', '1', ''),
 			('mail_smtp_pass', 'SMTP Password', 'SMPT password.', 'text', '', '', '', '0', '1', ''),
-			('mail_smtp_port', 'SMTP Port', 'SMPT port number.', 'text', '', '', '', '0', '1', '');			 
+			('mail_smtp_port', 'SMTP Port', 'SMPT port number.', 'text', '', '', '', '0', '1', '');
 			";
 		$this->db->query($insert_mail_settings);
-		
+
 		// ------ End SMTP support for emails
-		
+
 		// ---- News ----------------------------------------
-		
+
 		$this->dbforge->rename_table('categories', 'news_categories');
 
 		// set menu location
 		$this->db->where('slug', 'news')
 				->update('modules', array('menu'=>'content', 'is_core'=>'1'));
-		
+
 		// ---- / End News ----------------------------------
-		
+
 
 		// ---- Permissions ---------------------------------
 
 		//clean up after the old permissions module
 		$this->dbforge->drop_table('permission_roles');
 		$this->dbforge->drop_table('permission_rules');
-		
+
 		// set menu location
 		$this->db->where('slug', 'permissions')
 				->update('modules', array('menu'=>'users'));
 
 		// ---- / End Permissions ---------------------------
-		
-		
-	    // ---- Groups --------------------------------------
-		
-	    $this->_output .= "Modifying groups table.<br/>";
-	    $this->dbforge->drop_column('groups', 'title');
-	    $this->db->query("ALTER TABLE `groups` CHANGE `name` `name` varchar(100) COLLATE utf8_unicode_ci NOT NULL DEFAULT ''");
-	    $this->db->query("ALTER TABLE `groups` CHANGE `description` `description` varchar(250) COLLATE utf8_unicode_ci DEFAULT NULL");
-		
+
+
 		// set menu location
 		$this->db->where('slug', 'groups')
 				->update('modules', array('menu'=>'users'));
-		
+
 		// ---- / End Groups --------------------------------
-		
-		
+
+
 		// ---- Profiles ------------------------------------
-		
+
 		// Add the website column to the profiles table
 	    $this->dbforge->add_column('profiles', array(
 	        'website' => array(
@@ -441,7 +566,7 @@ class Upgrade extends Controller
 	            'null'        => TRUE
 	        )
 	    ));
-		
+
 		// ---- / End Profiles ------------------------------
 
 
@@ -466,7 +591,7 @@ class Upgrade extends Controller
 			 );
 
 			// Create the gallery record
-			if($this->db->insert('galleries', $to_insert))
+			if ($this->db->insert('galleries', $to_insert))
 			{
 				//time for the images (woot!)
 				$photos = $this->db->get_where('photos', array('album_id' => $album->id));
@@ -479,15 +604,16 @@ class Upgrade extends Controller
 					$filename = $file[0];
 
 					//create the full size image folder
-					if(!file_exists('./uploads/galleries/'.$album->slug.'/full'))
+					if (!file_exists('./uploads/galleries/'.$album->slug.'/full'))
 					{
 						mkdir('./uploads/galleries/'.$album->slug.'/full', 0755, TRUE);
 					}
+
 					//copy image to galleries folder
-					copy(APPPATH.'assets/img/photos/'.$album->id.'/'.$file[0].'.'.$file[1], './uploads/galleries/'.$album->slug.'/full/'.$filename.'.'.$file[1]);
+					@copy(APPPATH.'assets/img/photos/'.$album->id.'/'.$file[0].'.'.$file[1], './uploads/galleries/'.$album->slug.'/full/'.$filename.'.'.$file[1]);
 
 					//create the thumbnail folder
-					if(!file_exists('./uploads/galleries/'.$album->slug.'/thumbs'))
+					if (!file_exists('./uploads/galleries/'.$album->slug.'/thumbs'))
 					{
 						mkdir('./uploads/galleries/'.$album->slug.'/thumbs', 0755, TRUE);
 					}
@@ -586,7 +712,7 @@ class Upgrade extends Controller
 	        // Insert the page
 	        $this->db->insert('pages', $to_insert);
 	        $page_insert_id = $this->db->insert_id();
-			
+
 			//the versioning lib gives up on large websites
 			//so we're just doing an insert instead
 			$revision_data = array(
@@ -602,19 +728,19 @@ class Upgrade extends Controller
 	        $this->db->insert('revisions', $revision_data);
 
 	    }
-		
+
 		// set menu location
 		$this->db
 			->where('slug', 'pages')
 			->update('modules', array('menu'=>'content'));
-				
+
 		// ---- / End Pages ---------------------------------
-		
-	    
+
+
 		// Clear some caches
 		$this->_output .= "Clearing the module cache.<br/>";
 		$this->cache->delete_all('module_m');
-	    
+
 	    return TRUE;
 	}
 
@@ -739,7 +865,7 @@ class Upgrade extends Controller
 				'null' => FALSE
 			),
 		));
-		
+
 		return TRUE;
 	}
 }

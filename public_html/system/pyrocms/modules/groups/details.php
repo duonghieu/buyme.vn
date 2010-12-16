@@ -1,6 +1,6 @@
 <?php defined('BASEPATH') or exit('No direct script access allowed');
 
-class Details_Groups extends Module {
+class Module_Groups extends Module {
 
 	public $version = '1.0';
 	
@@ -10,10 +10,13 @@ class Details_Groups extends Module {
 			'name' => array(
 				'en' => 'Groups',
 				'br' => 'Grupos',
-                'de' => 'Gruppen',
+				'de' => 'Gruppen',
 				'nl' => 'Groepen',
                 'fr' => 'Groupes',
-				'zh' => '群組'
+				'zh' => '群組',
+				'it' => 'Gruppi',
+				'ru' => 'Группы',
+				'ar' => 'المجموعات'
 			),
 			'description' => array(
 				'en' => 'Users can be placed into groups to manage permissions.',
@@ -21,7 +24,10 @@ class Details_Groups extends Module {
 				'de' => 'Benutzer können zu Gruppen zusammengefasst werden um diesen Zugriffsrechte zu geben.',
 				'nl' => 'Gebruikers kunnen in groepen geplaatst worden om rechten te kunnen geven.',
 				'fr' => 'Les utilisateurs peuvent appartenir à des groupes afin de gérer les permissions.',
-				'zh' => '用戶可以依群組分類並管理其權限'
+				'zh' => '用戶可以依群組分類並管理其權限',
+				'it' => 'Gli utenti possono essere inseriti in gruppi per gestirne i permessi.',
+				'ru' => 'Пользователей можно объединять в группы, для управления правами доступа.',
+				'ar' => 'يمكن وضع المستخدمين في مجموعات لتسهيل إدارة صلاحياتهم.'
 			),
 			'frontend' => FALSE,
 			'backend'  => TRUE,
@@ -70,7 +76,11 @@ class Details_Groups extends Module {
 	{
 		// Return a string containing help info
 		// You could include a file and return it here.
-		return "No documentation has been added for this module.";
+		return "<h4>Overview</h4>
+		<p>The Groups module works together with the User Manager and the Permissions module to give PyroCMS access control.</p>
+		<h4>Add a Group</h4><hr>
+		<p>Give your group a name (usually lowercase) and a short description. Now use the Permissions module to control what
+		this group's users can access.</p>";
 	}
 }
 /* End of file details.php */

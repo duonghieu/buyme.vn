@@ -1,6 +1,6 @@
 <?php defined('BASEPATH') or exit('No direct script access allowed');
 
-class Details_Modules extends Module {
+class Module_Modules extends Module {
 
 	public $version = '1.0';
 	
@@ -15,7 +15,10 @@ class Details_Modules extends Module {
 				'de' => 'Module',
 				'pl' => 'Moduły',
 				'br' => 'Módulos',
-				'zh' => '模組'
+				'zh' => '模組',
+				'it' => 'Moduli',
+				'ru' => 'Модули',
+				'ar' => 'الوحدات'
 			),
 			'description' => array(
 				'en' => 'Allows admins to see a list of currently installed modules.',
@@ -25,7 +28,10 @@ class Details_Modules extends Module {
 				'de' => 'Zeigt Administratoren alle aktuell installierten Module.',
 				'pl' => 'Umożliwiają administratorowi wgląd do listy obecnie zainstalowanych modułów.',
 				'br' => 'Permite aos administradores ver a lista dos módulos instalados atualmente.',
-				'zh' => '管理員可以檢視目前已經安裝模組的列表'
+				'zh' => '管理員可以檢視目前已經安裝模組的列表',
+				'it' => 'Permette agli amministratori di vedere una lista dei moduli attualmente installati.',
+				'ru' => 'Список модулей, которые установлены на сайте.',
+				'ar' => 'تُمكّن المُدراء من معاينة جميع الوحدات المُثبّتة.'
 			),
 			'frontend' => FALSE,
 			'backend'  => TRUE,

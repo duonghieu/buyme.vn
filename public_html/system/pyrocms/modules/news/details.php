@@ -1,6 +1,6 @@
 <?php defined('BASEPATH') or exit('No direct script access allowed');
 
-class Details_News extends Module {
+class Module_News extends Module {
 
 	public $version = '1.0';
 
@@ -14,7 +14,11 @@ class Details_News extends Module {
 				'fr' => 'Actualités',
 				'de' => 'News',
 				'pl' => 'Aktualności',
-				'zh' => '新聞'
+				'br' => 'Novidades',
+				'zh' => '新聞',
+				'it' => 'Notizie',
+				'ru' => 'Новости',
+				'ar' => 'الأخبار'
 			),
 			'description' => array(
 				'en' => 'Post news articles and blog entries.',
@@ -23,7 +27,11 @@ class Details_News extends Module {
 				'fr' => 'Envoyez de nouveaux articles et messages de blog.',
 				'de' => 'Veröffentliche neue Artikel und Blog-Einträge',
 				'pl' => 'Postuj nowe artykuły oraz wpisy w blogu',
-				'zh' => '發表新聞訊息、部落格文章。'
+				'br' => 'Poste novidades',
+				'zh' => '發表新聞訊息、部落格文章。',
+				'it' => 'Pubblica notizie e post per il blog.',
+				'ru' => 'Управление новостными статьями и записями блога.',
+				'ar' => 'أنشر مقالات الأخبار والمُدوّنات.'
 			),
 			'frontend' => TRUE,
 			'backend' => TRUE,
@@ -94,4 +102,5 @@ class Details_News extends Module {
 		return "No documentation has been added for this module.";
 	}
 }
+
 /* End of file details.php */

@@ -11,10 +11,8 @@
  */
 class Plugin_Widgets extends Plugin
 {
-	function __construct($data)
+	function __construct()
 	{
-		parent::__construct($data);
-
 		$this->load->library('widgets/widgets');
 	}
 
@@ -47,7 +45,7 @@ class Plugin_Widgets extends Plugin
 	 * @param	array
 	 * @return	array
 	 */
-	public function instance($id)
+	public function instance()
 	{
 		$id = $this->attribute('id');
 

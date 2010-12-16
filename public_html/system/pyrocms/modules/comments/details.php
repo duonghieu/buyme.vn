@@ -1,6 +1,6 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Details_Comments extends Module {
+class Module_Comments extends Module {
 	
 	public $version = '1.0';
 
@@ -15,7 +15,10 @@ class Details_Comments extends Module {
 				'fr' => 'Commentaires',
 				'de' => 'Kommentare',
 				'pl' => 'Komentarze',
-				'zh' => '回應'
+				'zh' => '回應',
+				'it' => 'Commenti',
+				'ru' => 'Комментарии',
+				'ar' => 'العربيّة'
 			),
 			'description' => array(
 				'en' => 'Users and guests can write comments for content like news, pages and photos.',
@@ -25,7 +28,10 @@ class Details_Comments extends Module {
 				'fr' => 'Les utilisateurs et les invités peuvent écrire des commentaires pour quasiment tout grâce au générateur de captcha intégré.',
 				'de' => 'Benutzer und Gäste können für fast alles Kommentare schreiben.',
 				'pl' => 'Użytkownicy i goście mogą dodawać komentarze z wbudowanym systemem zabezpieczeń captcha.',
-				'zh' => '用戶和訪客可以針對新聞、頁面與照片等內容發表回應。'
+				'zh' => '用戶和訪客可以針對新聞、頁面與照片等內容發表回應。',
+				'it' => 'Utenti e visitatori possono scrivere commenti ai contenuti quali news, pagine e foto.',
+				'ru' => 'Пользователи и гости могут добавлять комментарии к новостям, информационным страницам и фотографиям.',
+				'ar' => 'يستطيع الأعضاء والزوّار كتابة التعليقات على المُحتوى كالأخبار، والصفحات والصّوَر.',
 			),
 			'frontend' => FALSE,
 			'backend'  => TRUE,

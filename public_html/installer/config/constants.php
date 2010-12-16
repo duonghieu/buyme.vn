@@ -1,4 +1,4 @@
-<?php  if ( ! defined('BASEPATH')) exit('No direct script access allowed');
+<?php defined('BASEPATH') OR exit('No direct script access allowed');
 
 /*
 |--------------------------------------------------------------------------
@@ -112,4 +112,4 @@ unset($base_uri, $base_url);
 |
 */
 
-define('CMS_VERSION', '1.0.0-beta2');
+define('CMS_VERSION', '1.0.0');

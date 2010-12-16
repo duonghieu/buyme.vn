@@ -11,6 +11,7 @@ jQuery(function($) {
 	 * This initializes all JS goodness
 	 */
 	pyro.init = function() {
+		$( "#datepicker" ).datepicker();
 		$("#main-nav li ul").hide();
 		$("#main-nav li a.current").parent().find("ul").toggle();
 		$("#main-nav li a.current:not(.no-submenu)").addClass("bottom-border");
@@ -65,34 +66,38 @@ jQuery(function($) {
 
 		// Confirmation
 		$("a.confirm").live('click', function(){
-			removemsg = $("em").attr("title");
+			removemsg = $(this).attr("title");
 	
-			if (removemsg === undefined)
+			if (removemsg != 'undefined')
 			{
-				confirm_msg = $(this).attr('title');
-				
-				if(confirm_msg.length <= 0)
+				if(removemsg.length <= 0)
 				{
-					var answer = confirm(DIALOG_MESSAGE);
+					msg = DIALOG_MESSAGE;
 				}
 				else
 				{
-					var answer = confirm(confirm_msg);
+					msg = removemsg;
 				}
 			}
 			else
 			{
-				var answer = confirm(removemsg);
+				msg = DIALOG_MESSAGE;
 			}
 
-			return answer;
+			if(confirm(msg))
+			{
+				window.location.href = $(this).attr("href");
+			}
 		});
-		
-		//minibutton fix
-		$("a.minibutton, a.button").live('click', function(e) {
-			e.preventDefault();
-			window.location.href = $(this).attr("href");
-		});
+
+                //make page buttons work
+                $('a.button, a.minibutton').live('click', function() {
+                    var href = $(this).attr("href");
+                    if(href.indexOf('delete') < 0)
+                    {
+                         window.location.href = href;
+                    }
+                });
 
 		// Table zerbra striping
 		$("tbody tr:nth-child(even)").livequery(function () {
@@ -114,7 +119,7 @@ jQuery(function($) {
 				}
 			});
 		});
-		$("select, input[type=checkbox], input[type=radio], input[type=file], input[type=submit], a.button, a.minibutton, button, textarea").livequery(function () {
+		$("select, textarea, input[type=text], input[type=file], input[type=submit], a.button, a.minibutton, button").livequery(function () {
 			// Update uniform if enabled
 			$.uniform && $(this).uniform();
 		});

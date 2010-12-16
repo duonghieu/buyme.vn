@@ -60,17 +60,12 @@ class MY_Controller extends Controller
 			//$_POST = $this->security->xss_clean($_POST);
 		}
 
-		// Simple Pyro variables
-        $pyro['base_url']			= BASE_URL;
-        $pyro['base_uri'] 			= BASE_URI;
-        $pyro['application_uri'] 	= APPPATH_URI;
-        $pyro['lang']				= CURRENT_LANGUAGE;
-
-		// Mega Pyro arrays
-        $pyro['user'] 	=& $this->user;
+		$langs = $this->config->item('supported_languages');
+		
+		$pyro['lang'] = $langs[CURRENT_LANGUAGE];
+		$pyro['lang']['code'] = CURRENT_LANGUAGE;
 
         $this->load->vars($pyro);
-        $this->load->vars('pyro', $pyro); // DEPRECATED - This is for backwards support only.
 
         $this->benchmark->mark('my_controller_end');
 	}

@@ -1,4 +1,4 @@
-<?php echo form_open('admin/files');?>
+<?php echo form_open('admin/files/action');?>
 	<h3>
 		<?php echo $crumbs; ?>
 		<span><a href="<?php echo site_url('admin/files/upload/'.$id);?>" id="new_files"><?php echo lang('files.upload.title'); ?></a></span>
@@ -43,6 +43,7 @@
 
 				foreach ($files as $file)
 				{
+					$download = anchor('files/download/' . $file->id, lang('files.labels.download'), array('class' => 'download_file'));
 					$edit = anchor('admin/files/edit/' . $file->id, lang('files.labels.edit'), array('class' => 'edit_file'));
 					$delete = anchor('admin/files/delete/' . $file->id, lang('files.labels.delete'), array('class'=>'confirm'));
 					$this->table->add_row(
@@ -50,14 +51,14 @@
 					 	$file->name,
 					 	lang('files.'.$file->type),
 						$file->filename,
-						date("m.d.y \a\\t g.i a", $file->date_added),
-						$edit .' | '. $delete
+						date("d/m/Y \a\\t g.i a", $file->date_added),
+						$download .' | '. $edit .' | '. $delete
 					 );
 				}
 
 			echo $this->table->generate();
 		?>
-
+		<?php $this->load->view('admin/partials/buttons', array('buttons' => array('delete'))); ?>
 	<?php else: ?>
 		<p><?php echo lang('files.no_files');?></p>
 	<?php endif; ?>

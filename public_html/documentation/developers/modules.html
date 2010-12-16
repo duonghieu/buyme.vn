@@ -1,7 +1,5 @@
 <h2>Modules</h2>
 
-
-
 <p>
 	PyroCMS is built to be modular, so creating modules is a pretty simple process. The core modules are
 	stored in <def>system/pyrocms/modules</def> and you can install extra ones to <def>addons/modules</def>.
@@ -22,13 +20,13 @@
 
 <h3>Module Details</h3>
 
-<p>Each module contains a details.php file which contains its name,  description, version, wether they are available to the   backend and/or frontend, etc. &nbsp;This file is only used when installing and uninstalling the module. &nbsp;On install the file is parsed and imported into the database.</p>
+<p>Each module contains a details.php file which contains its name,  description, version, whether they are available to the backend and/or frontend, etc. &nbsp;This file is only used when installing and uninstalling the module. &nbsp;On install the file is parsed and imported into the database.</p>
 
 <p>Here is the basic structure for the details.php file:</p>
 
 <pre><code class="php">&lt;?php defined('BASEPATH') or exit('No direct script access allowed');
 
-class Details_Polls extends Module {
+class Module_Polls extends Module {
 
 	public $version = '1.0';
 
@@ -123,12 +121,10 @@ class Admin extends Admin_Controller {
 
 <p>This page can be accessed via "http://example.com/admin/modulename".</p>
 
-<h3>Module Cache</h3>
+<h3>Module Index</h3>
 
-<p>When you put together your module structure and made your details.php file, you might notice there is still no sign of your module in the Control Panel. The navigation is cached to save CPU cycles as parsing 10+ XML files on each page load is silly. To get your backend module to appear (if you have told it to do so with is_backend_menu in details.php) you need to clear the system/pyrocms/cache/modules_m/ cache folder like so:</p>
-<blockquote>sudo rm -rf system/pyrocms/cache/modules_m</blockquote>
-
-<p>Now your module should appear and you can start developing your module using normal CodeIgniter methods, your own libraries and those included with PyroCMS.</p>
+<p>When you place a module inside the addons/modules directory and go to CP > Modules page, it will "index" the file into the database. If you change the details of this module, you will need to uninstall and delete,
+or manually change the information in the database. We'll add a "re-index" feature in for v1.1.</p>
 
 <h3>Installing the Module</h3>
 
@@ -149,3 +145,20 @@ class Admin extends Admin_Controller {
 <h3>Disabling the Module</h3>
 
 <p>To disable simply go into the Control Panel, click on "Modules" then click "Disable" next to the module you want to disable. This will disable both on the front end (it will 404 when you try to visit it) and in the Control Panel.</p>
+
+
+<h3>Best Practices</h3>
+
+<h4>Database Interaction</h4>
+
+<p>We recommend you use the Database or DBForge libraries for any database interaction (i.e. creating tables).  These two libraries are made available to you as follows:</p>
+
+<pre><code>$this->db->query('whatever sql here');
+$this->dbforge->create_table('table_name');</code></pre>
+
+<h4>Other Library Usage</h4>
+
+<p>You can access any CI library as you normally would inside a Controller, including loading other libraries:</p>
+
+<pre><code>$this->load->library('whatever');
+$this->whatever->method();</code></pre>

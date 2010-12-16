@@ -13,7 +13,7 @@ class Installer extends Controller
 	/**
 	 * Array of languages supported by the installer
 	 */
-	private $languages	= array ('english','dutch','brazilian','polish','chinese_traditional', 'french', 'spanish');
+	private $languages	= array ('arabic', 'brazilian', 'english', 'dutch', 'french', 'german', 'polish', 'chinese_traditional', 'spanish', 'russian');
 
 	/**
 	 * Array containing the directories that need to be writeable
@@ -25,8 +25,6 @@ class Installer extends Controller
 		'system/codeigniter/cache',
 		'system/codeigniter/logs',
 		'system/pyrocms/cache',
-		'system/pyrocms/cache/dwoo',
-		'system/pyrocms/cache/dwoo/compiled',
 		'system/pyrocms/cache/simplepie',
 		'system/pyrocms/config',
 		'uploads'
@@ -252,13 +250,13 @@ class Installer extends Controller
 		// Get the write permissions for the folders
 		foreach($this->writeable_directories as $dir)
 		{
-			@chmod("../$dir", 0777);
+			@chmod('../'.$dir, 0777);
 			$permissions['directories'][$dir] = is_really_writable('../' . $dir);
 		}
 		
 		foreach($this->writeable_files as $file)
 		{
-			@chmod("../$file", 0666);
+			@chmod('../'.$file, 0666);
 			$permissions['files'][$file] = is_really_writable('../' . $file);
 		}
 		

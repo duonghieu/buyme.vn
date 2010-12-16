@@ -1,6 +1,6 @@
 <?php defined('BASEPATH') or exit('No direct script access allowed');
 
-class Details_Contact extends Module {
+class Module_Contact extends Module {
 
 	public $version = '0.6';
 
@@ -14,7 +14,9 @@ class Details_Contact extends Module {
 				'es' => 'Contacto',
 				'fr' => 'Contact',
 				'de' => 'Kontakt',
-				'zh' => '聯絡我們'
+				'zh' => '聯絡我們',
+				'it' => 'Contattaci',
+				'ru' => 'Обратная связь'
 			),
 			'description' => array(
 				'en' => 'Adds a form to your site that allows visitors to send emails to you without disclosing an email address to them.',
@@ -23,7 +25,9 @@ class Details_Contact extends Module {
 				'es' => 'Añade un formulario a tu sitio que permitirá a los visitantes enviarte correos electrónicos a ti sin darles tu dirección de correo directamente a ellos.',
 				'fr' => 'Ajoute un formulaire à votre site qui permet aux visiteurs de vous envoyer un e-mail sans révéler votre adresse e-mail.',
 				'de' => 'Fügt ein Formular hinzu, welches Besuchern erlaubt Emails zu schreiben, ohne die Kontakt Email-Adresse offen zu legen.',
-				'zh' => '為您的網站新增「聯絡我們」的功能，對訪客是較為清楚便捷的聯絡方式，也無須您將電子郵件公開在網站上。'
+				'zh' => '為您的網站新增「聯絡我們」的功能，對訪客是較為清楚便捷的聯絡方式，也無須您將電子郵件公開在網站上。',
+				'it' => 'Aggiunge un modulo al tuo sito che permette ai visitatori di inviarti email senza mostrare loro il tuo indirizzo email.',
+				'ru' => 'Добавляет форму обратной связи на сайт, через которую посетители могут отправлять вам письма, при этом адрес Email остаётся скрыт.'
 			),
 			'frontend' => TRUE,
 			'backend' => FALSE,

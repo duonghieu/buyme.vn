@@ -34,7 +34,22 @@
 		<a href="<?php echo site_url('installer/change/chinese_traditional'); ?>" title="繁體中文">
 			<img src="<?php echo base_url(); ?>assets/images/flags/tw.gif" alt="繁體中文" />
 		</a>
+	</li>
+	<li>
+		<a href="<?php echo site_url('installer/change/russian'); ?>" title="Русский">
+			<img src="<?php echo base_url(); ?>assets/images/flags/ru.gif" alt="Русский" />
+		</a>
+	</li>
+	<li>
+		<a href="<?php echo site_url('installer/change/arabic'); ?>" title="العربية">
+			<img src="<?php echo base_url(); ?>assets/images/flags/ar.gif" alt="العربية" />
+		</a>
 	</li>	
+	<li>
+		<a href="<?php echo site_url('installer/change/german'); ?>" title="german">
+			<img src="<?php echo base_url(); ?>assets/images/flags/de.gif" alt="german" />
+		</a>
+	</li>
 </ul>
 
 <h1>{header}</h1>

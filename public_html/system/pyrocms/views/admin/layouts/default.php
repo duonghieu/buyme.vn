@@ -13,8 +13,8 @@
 	<meta name="viewport" content="width=device-width; initial-scale=1.0; maximum-scale=1.0;">
 	
 	<!-- Grab Google CDNs jQuery, fall back if necessary -->
-	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>
-	<script>!window.jQuery && document.write('<script src="<?php echo js_path('jquery/jquery-1.4.2.min.js'); ?>"><\/script>')</script>
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.4/jquery.min.js"></script>
+	<script>!window.jQuery && document.write('<script src="<?php echo js_path('jquery/jquery.js'); ?>"><\/script>')</script>
 	
 	<!--[if lt IE 9]><script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]--> 
 	
@@ -54,7 +54,7 @@
 			<h1><?php echo $module_details['name'] ? anchor('admin/' . strtolower($module_details['name']), $module_details['name']) : lang('cp_admin_home_title'); ?></h1>
 			<p><?php echo $module_details['description'] ? $module_details['description'] : ''; ?></p>
 			<?php if($module_details['slug']): ?>
-				<p id="page-header-help"><a class="modal" title="<?php echo lang('help_label').'->'.$module_details['name']; ?>" href="<?php echo BASE_URL.'admin/help/'.$module_details['slug']; ?>">?</a></p>
+				<p id="page-header-help"><?php echo anchor('admin/help/'.$module_details['slug'], '?', array('title' => lang('help_label').'->'.$module_details['name'], 'class' => 'modal')); ?></p>
 			<?php endif; ?>
 		</header>
 

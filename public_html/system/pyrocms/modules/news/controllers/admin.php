@@ -89,8 +89,8 @@ class Admin extends Admin_Controller
 		$this->data->months = array_combine($months = range(1, 12), $months);
 		$this->data->years = array_combine($years = range(date('Y')-2, date('Y')+2), $years);
 		
-		$this->data->hours = array_combine($hours = range(1, 23), $hours);
-		$this->data->minutes = array_combine($minutes = range(1, 59), $minutes);
+		$this->data->hours = array_combine($hours = range(0, 23), $hours);
+		$this->data->minutes = array_combine($minutes = range(0, 59), $minutes);
 		
 		$this->data->categories = array(0 => '');
 		if ($categories = $this->news_categories_m->get_all())
@@ -114,17 +114,20 @@ class Admin extends Admin_Controller
 	{
 		// Create pagination links
 		$total_rows = $this->news_m->count_by(array('show_future'=>TRUE, 'status' => 'all'));
-		$this->data->pagination = create_pagination('admin/news/index', $total_rows);
+		$pagination = create_pagination('admin/news/index', $total_rows);
 		
 		// Using this data, get the relevant results
-		$this->data->news = $this->news_m->limit($this->data->pagination['limit'])->get_many_by(array(
-			'show_future'=>TRUE,
+		$news = $this->news_m->limit($pagination['limit'])->get_many_by(array(
+			'show_future' => TRUE,
 			'status' => 'all'
 		));
 		
 		
-		$this->template->title($this->module_details['name'])
-						->build('admin/index', $this->data);
+		$this->template
+			->title($this->module_details['name'])
+			->set('pagination', $pagination)
+			->set('news', $news)
+			->build('admin/index', $this->data);
 	}
 	
 	/**
@@ -156,23 +159,29 @@ class Admin extends Admin_Controller
 				'created_on_year'	=> $this->input->post('created_on_year'),
 			));
     	
-			$id
-				? $this->session->set_flashdata('success', sprintf($this->lang->line('news_article_add_success'), $this->input->post('title')))
-				: $this->session->set_flashdata('error', $this->lang->line('news_article_add_error'));
+			if($id)
+			{
+				$this->cache->delete_all('news_m');
+				$this->session->set_flashdata('success', sprintf($this->lang->line('news_article_add_success'), $this->input->post('title')));
+			}
+			else
+			{
+				$this->session->set_flashdata('error', $this->lang->line('news_article_add_error'));
+			}
 
-			redirect('admin/news');
+			// Redirect back to the form or main page
+			$this->input->post('btnAction') == 'save_exit' ? redirect('admin/news') : redirect('admin/news/edit/'.$id);
 		}
+
 		else
 		{
 			// Go through all the known fields and get the post values
 			foreach($this->validation_rules as $key => $field)
 			{
-				
 				$article->$field['field'] = set_value($field['field']);
 			}
 		}
 		
-		// Load WYSIWYG editor
 		$this->template
 			->title($this->module_details['name'], lang('news_create_title'))
 			->append_metadata( $this->load->view('fragments/wysiwyg', $this->data, TRUE) )
@@ -189,12 +198,10 @@ class Admin extends Admin_Controller
 	 */
 	public function edit($id = 0)
 	{
-		if ( ! $id)
-		{
-			redirect('admin/news');
-		}
+		$id OR redirect('admin/news');
 		
 		$this->load->library('form_validation');
+		
 		$this->form_validation->set_rules($this->validation_rules);
 			
 		$article = $this->news_m->get($id);
@@ -238,7 +245,10 @@ class Admin extends Admin_Controller
 				$this->session->set_flashdata(array('error'=> $this->lang->line('news_edit_error')));
 			}
 			
-			redirect('admin/news');
+			// Redirect back to the form or main page
+			$this->input->post('btnAction') == 'save_exit'
+				? redirect('admin/news')
+				: redirect('admin/news/edit/'.$id);
 		}
 		
 		// Go through all the known fields and get the post values
