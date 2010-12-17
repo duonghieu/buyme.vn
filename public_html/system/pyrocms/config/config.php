@@ -324,9 +324,6 @@ function __autoload($class)
 {
 	if(strpos($class, 'CI_') !== 0)
 	{
-            if(file_exists( APPPATH . 'libraries/'. $class . EXT ))
-            {
-                @include_once( APPPATH . 'libraries/'. $class . EXT );
-            }
+		@include_once( APPPATH . 'libraries/'. $class . EXT );
 	}
 }
