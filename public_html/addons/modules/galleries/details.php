@@ -14,7 +14,10 @@ class Module_Galleries extends Module {
 				'fr' => 'Galeries',
 				'zh' => '畫廊',
 				'it' => 'Gallerie',
-				'ru' => 'Галереи'
+				'ru' => 'Галереи',
+				'ar' => 'معارض الصّور',
+				'pt' => 'Galerias',
+				'cs' => 'Galerie'
 			),
 			'description' => array(
 				'en' => 'The galleries module is a powerful module that lets users create image galleries.',
@@ -23,7 +26,10 @@ class Module_Galleries extends Module {
 				'fr' => 'Galerie est une puissante extension permettant de créer des galeries d\'images.',
 				'zh' => '這是一個功能完整的模組，可以讓用戶建立自己的相簿或畫廊。',
 				'it' => 'Il modulo gallerie è un potente modulo che permette agli utenti di creare gallerie di immagini.',
-				'ru' => 'Галереи - мощный модуль, который даёт пользователям возможность создавать галереи изображений.'
+				'ru' => 'Галереи - мощный модуль, который даёт пользователям возможность создавать галереи изображений.',
+				'ar' => 'هذه الوحدة تمُكّنك من إنشاء معارض الصّور بسهولة.',
+				'pt' => 'O módulo de galerias é um poderoso módulo que permite aos usuários criar galerias de imagens.',
+			    	'cs' => 'Silný modul pro vytváření a správu galerií obrázků.'
 			),
 			'frontend' => TRUE,
 			'backend' => TRUE,

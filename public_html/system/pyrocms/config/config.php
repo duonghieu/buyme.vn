@@ -1,4 +1,4 @@
-<?php  if (!defined('BASEPATH')) exit('No direct script access allowed');
+<?php defined('BASEPATH') OR exit('No direct script access allowed');
 
 /*
 |--------------------------------------------------------------------------
@@ -24,7 +24,7 @@ $config['base_url'] = BASE_URL;
 | variable so that it is blank.
 |
 */
-$config['index_page'] = 'index.php';
+$config['index_page'] = '';
 
 /*
 |--------------------------------------------------------------------------
@@ -309,21 +309,3 @@ $config['time_reference'] = 'gmt';
 |
 */
 $config['rewrite_short_tags'] = FALSE;
-
-
-/*
-| -------------------------------------------------------------------
-|  Native Auto-load
-| -------------------------------------------------------------------
-| 
-| Nothing to do with config/autoload.php, this allows PHP autoload to work
-| for controller types and some third-party libraries.
-|
-*/
-function __autoload($class)
-{
-	if(strpos($class, 'CI_') !== 0)
-	{
-		@include_once( APPPATH . 'libraries/'. $class . EXT );
-	}
-}

@@ -1,0 +1,395 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+{pyro:theme:partial file="metadata"}
+
+<body>
+
+	<div id="toolbar-wrapper">
+		
+		<div id="toolbar">
+			
+			<ul id="nav">
+				<li><a href="#">Trang chủ</a></li>
+				<li><a href="#">Mua sắm <span>&nbsp;&nbsp;&nbsp;&nbsp;</span></a>
+					<ul>
+						<li><a href="#">Tìm sản phẩm</a></li>
+						<li><a href="#">Khuyến mại</a></li>
+						<li><a href="#">Hội chợ</a></li>
+						<li><a href="#">Hướng dẫn mua hàng</a></li>
+					</ul>
+				</li>
+				<li><a href="#">Bán hàng <span>&nbsp;&nbsp;&nbsp;&nbsp;</span></a>
+					<ul>
+						<li><a href="#">Đăng bán</a></li>
+						<li><a href="#">Gian hàng</a></li>
+						<li><a href="#">Quảng bá sản phẩm</a></li>
+						<li><a href="#">Hướng dẫn bán hàng</a></li>
+					</ul>
+				</li>
+				<li><a href="#">Cộng đồng <span>&nbsp;&nbsp;&nbsp;&nbsp;</span></a>
+					<ul>
+						<li><a href="#">Blog Buyme</a></li>
+						<li><a href="#">Xin ý kiến cộng đồng</a></li>
+						<li><a href="#">Hỏi đáp</a></li>
+					</ul>
+				</li>
+				<li><a href="#">Hỗ trợ <span>&nbsp;&nbsp;&nbsp;&nbsp;</span></a>
+					<ul>
+						<li><a href="#">Câu hỏi thường gặp</a></li>
+						<li><a href="#">Đặt câu hỏi cho Buyme</a></li>
+						<li><a href="#">Hướng dẫn sử dụng dịch vụ</a></li>
+						<li><a href="#">Liên hệ</a></li>
+					</ul>
+				</li>
+				<li><sup>powered by Buyme&trade;</sup></li>
+			</ul>
+			
+			<ul id="account">
+				<li><a href="signin.html" class="DOMWindow">Đăng nhập</a></li>
+				<li><a href="#">Đăng ký</a></li>
+				<li><a href="#">Giỏ hàng</a></li>
+			</ul>
+			
+			<div class="clear"></div>
+		</div>
+		
+	</div>
+	<div id="wrapper">
+		
+		<div id="header">
+			<h1 id="logo"><a href="index.html">Buyme</a></h1>
+			
+			<div id="search">
+				<div id="search-content">
+					<input type="text" id="search-keyword" name="search-keyword" placeholder="Tìm kiếm sản phẩm" />
+					<input type="submit" value="Tìm kiếm" name="search-submit" id="search-submit" />
+					<div class="clear"></div>
+				</div>
+			</div>
+			<div class="clear"></div>
+			<ul id="sub-nav">
+				<li class="menu-trigger"><a href="#">Tất cả danh mục</a> <span>&gt;</span>
+					<div><h3>Cây danh mụch</h3>
+						<ul>
+							<li><a href="">Mobile, PDA</a></li>
+							<li><a href="">Máy tính, linh kiện, dịch vụ</a></li>
+							<li><a href="">Hàng điện tử, nhạc cụ</a></li>
+							<li><a href="">Máy ảnh, máy quay, thiết bị</a></li>
+							<li><a href="">Ô tô, xe máy, xe đạp</a></li>
+							<li><a href="">Công nghiệp, Xây dựng</a></li>
+							<li><a href="">Đồ dùng sinh hoạt</a></li>
+							<li><a href="">Mẹ & Bé</a></li>
+							<li><a href="">Hàng thời trang</a></li>
+							<li><a href="">Mỹ phẩm, chăm sóc sức khỏe</a></li>
+							<li><a href="">Sách, đồ dùng văn phòng</a></li>
+							<li><a href="">Hoa, quà tặng, đồ chơi</a></li>
+							<li><a href="">Trang trí nội, ngoại thất</a></li>
+							<li><a href="">Thực phẩm, đồ uống</a></li>
+							<li><a href="">Bất động sản</a></li>
+							<li><a href="">Dịch vụ, giải trí, du lịch</a></li>
+						</ul>
+					</div>
+				</li>
+				<li><a href="#">Khuyến mại</a></li>
+				<li><a href="#">Hội chợ</a></li>
+				<li><a href="#">Đăng bán</a></li>
+				<li><a href="#">Gian hàng</a></li>
+				<li><a href="#">Quảng bá</a></li>
+				<li class="calltoaction-button"><a href="#">Đăng ký miễn phí</a></li>
+			</ul>
+			
+		</div>
+		
+		<div id="body">
+			<div id="content">
+				
+				<div class="box" id="home-slide"></div>
+				
+				{pyro:template:body}
+				
+				<div class="box">
+					<h3>Sản phẩm giới thiệu</h3>
+					<div class="box-content">
+						<div class="prod-grid-medium">
+							<div>
+								<a href="#" class="prod-img"><img src="images/sample-product-medium.jpg" alt="" /></a>
+								<p class="price"><strong>1.000.000</strong> <em>(-5%)</em></p>
+								<h3><a href="#">Yet another Sample product title</a></h3>
+								<p class="meta">đăng bởi <a href="#" class="meta-link">Dat Nguyen</a></p>
+							</div>
+							<div>
+								<a href="#" class="prod-img"><img src="images/sample-product-medium.jpg" alt="" /></a>
+								<p class="price"><strong>1.000.000</strong> <em>(-5%)</em></p>
+								<h3><a href="#">Sample product title</a></h3>
+								<p class="meta">đăng bởi <a href="#" class="meta-link">Dat Nguyen</a></p>
+							</div>
+							<div>
+								<a href="#" class="prod-img"><img src="images/sample-product-medium.jpg" alt="" /></a>
+								<p class="price"><strong>1.000.000</strong> <em>(-5%)</em></p>
+								<h3><a href="#">Sample product title</a></h3>
+								<p class="meta">đăng bởi <a href="#" class="meta-link">Dat Nguyen</a></p>
+							</div>
+							<div>
+								<a href="#" class="prod-img"><img src="images/sample-product-medium.jpg" alt="" /></a>
+								<p class="price"><strong>1.000.000</strong> <em>(-5%)</em></p>
+								<h3><a href="#">Sample product title</a></h3>
+								<p class="meta">đăng bởi <a href="#" class="meta-link">Dat Nguyen</a></p>
+							</div>
+							<div class="clear"></div>
+							<div>
+								<a href="#" class="prod-img"><img src="images/sample-product-medium.jpg" alt="" /></a>
+								<p class="price"><strong>1.000.000</strong> <em>(-5%)</em></p>
+								<h3><a href="#">Yet another Sample product title</a></h3>
+								<p class="meta">đăng bởi <a href="#" class="meta-link">Dat Nguyen</a></p>
+							</div>
+							<div>
+								<a href="#" class="prod-img"><img src="images/sample-product-medium.jpg" alt="" /></a>
+								<p class="price"><strong>1.000.000</strong> <em>(-5%)</em></p>
+								<h3><a href="#">Sample product title</a></h3>
+								<p class="meta">đăng bởi <a href="#" class="meta-link">Dat Nguyen</a></p>
+							</div>
+							<div>
+								<a href="#" class="prod-img"><img src="images/sample-product-medium.jpg" alt="" /></a>
+								<p class="price"><strong>1.000.000</strong> <em>(-5%)</em></p>
+								<h3><a href="#">Sample product title</a></h3>
+								<p class="meta">đăng bởi <a href="#" class="meta-link">Dat Nguyen</a></p>
+							</div>
+							<div>
+								<a href="#" class="prod-img"><img src="images/sample-product-medium.jpg" alt="" /></a>
+								<p class="price"><strong>1.000.000</strong> <em>(-5%)</em></p>
+								<h3><a href="#">Sample product title</a></h3>
+								<p class="meta">đăng bởi <a href="#" class="meta-link">Dat Nguyen</a></p>
+							</div>
+							<div class="clear"></div>
+							<div>
+								<a href="#" class="prod-img"><img src="images/sample-product-medium.jpg" alt="" /></a>
+								<p class="price"><strong>1.000.000</strong> <em>(-5%)</em></p>
+								<h3><a href="#">Yet another Sample product title</a></h3>
+								<p class="meta">đăng bởi <a href="#" class="meta-link">Dat Nguyen</a></p>
+							</div>
+							<div>
+								<a href="#" class="prod-img"><img src="images/sample-product-medium.jpg" alt="" /></a>
+								<p class="price"><strong>1.000.000</strong> <em>(-5%)</em></p>
+								<h3><a href="#">Sample product title</a></h3>
+								<p class="meta">đăng bởi <a href="#" class="meta-link">Dat Nguyen</a></p>
+							</div>
+							<div>
+								<a href="#" class="prod-img"><img src="images/sample-product-medium.jpg" alt="" /></a>
+								<p class="price"><strong>1.000.000</strong> <em>(-5%)</em></p>
+								<h3><a href="#">Sample product title</a></h3>
+								<p class="meta">đăng bởi <a href="#" class="meta-link">Dat Nguyen</a></p>
+							</div>
+							<div>
+								<a href="#" class="prod-img"><img src="images/sample-product-medium.jpg" alt="" /></a>
+								<p class="price"><strong>1.000.000</strong> <em>(-5%)</em></p>
+								<h3><a href="#">Sample product title</a></h3>
+								<p class="meta">đăng bởi <a href="#" class="meta-link">Dat Nguyen</a></p>
+							</div>
+							<div class="clear"></div>
+						</div>
+					</div>
+				</div>
+				
+				<div class="box">
+					<h3>Top sản phẩm</h3>
+					<div class="box-content">
+						<div class="prod-grid-medium">
+							<div>
+								<a href="#" class="prod-img"><img src="images/sample-product-medium.jpg" alt="" /></a>
+								<p class="price"><strong>1.000.000</strong> <em>(-5%)</em></p>
+								<h3><a href="#">Yet another Sample product title</a></h3>
+								<p class="meta">đăng bởi <a href="#" class="meta-link">Dat Nguyen</a></p>
+							</div>
+							<div>
+								<a href="#" class="prod-img"><img src="images/sample-product-medium.jpg" alt="" /></a>
+								<p class="price"><strong>1.000.000</strong> <em>(-5%)</em></p>
+								<h3><a href="#">Sample product title</a></h3>
+								<p class="meta">đăng bởi <a href="#" class="meta-link">Dat Nguyen</a></p>
+							</div>
+							<div>
+								<a href="#" class="prod-img"><img src="images/sample-product-medium.jpg" alt="" /></a>
+								<p class="price"><strong>1.000.000</strong> <em>(-5%)</em></p>
+								<h3><a href="#">Sample product title</a></h3>
+								<p class="meta">đăng bởi <a href="#" class="meta-link">Dat Nguyen</a></p>
+							</div>
+							<div>
+								<a href="#" class="prod-img"><img src="images/sample-product-medium.jpg" alt="" /></a>
+								<p class="price"><strong>1.000.000</strong> <em>(-5%)</em></p>
+								<h3><a href="#">Sample product title</a></h3>
+								<p class="meta">đăng bởi <a href="#" class="meta-link">Dat Nguyen</a></p>
+							</div>
+							<div class="clear"></div>
+							<div>
+								<a href="#" class="prod-img"><img src="images/sample-product-medium.jpg" alt="" /></a>
+								<p class="price"><strong>1.000.000</strong> <em>(-5%)</em></p>
+								<h3><a href="#">Yet another Sample product title</a></h3>
+								<p class="meta">đăng bởi <a href="#" class="meta-link">Dat Nguyen</a></p>
+							</div>
+							<div>
+								<a href="#" class="prod-img"><img src="images/sample-product-medium.jpg" alt="" /></a>
+								<p class="price"><strong>1.000.000</strong> <em>(-5%)</em></p>
+								<h3><a href="#">Sample product title</a></h3>
+								<p class="meta">đăng bởi <a href="#" class="meta-link">Dat Nguyen</a></p>
+							</div>
+							<div>
+								<a href="#" class="prod-img"><img src="images/sample-product-medium.jpg" alt="" /></a>
+								<p class="price"><strong>1.000.000</strong> <em>(-5%)</em></p>
+								<h3><a href="#">Sample product title</a></h3>
+								<p class="meta">đăng bởi <a href="#" class="meta-link">Dat Nguyen</a></p>
+							</div>
+							<div>
+								<a href="#" class="prod-img"><img src="images/sample-product-medium.jpg" alt="" /></a>
+								<p class="price"><strong>1.000.000</strong> <em>(-5%)</em></p>
+								<h3><a href="#">Sample product title</a></h3>
+								<p class="meta">đăng bởi <a href="#" class="meta-link">Dat Nguyen</a></p>
+							</div>
+							<div class="clear"></div>
+							<div>
+								<a href="#" class="prod-img"><img src="images/sample-product-medium.jpg" alt="" /></a>
+								<p class="price"><strong>1.000.000</strong> <em>(-5%)</em></p>
+								<h3><a href="#">Yet another Sample product title</a></h3>
+								<p class="meta">đăng bởi <a href="#" class="meta-link">Dat Nguyen</a></p>
+							</div>
+							<div>
+								<a href="#" class="prod-img"><img src="images/sample-product-medium.jpg" alt="" /></a>
+								<p class="price"><strong>1.000.000</strong> <em>(-5%)</em></p>
+								<h3><a href="#">Sample product title</a></h3>
+								<p class="meta">đăng bởi <a href="#" class="meta-link">Dat Nguyen</a></p>
+							</div>
+							<div>
+								<a href="#" class="prod-img"><img src="images/sample-product-medium.jpg" alt="" /></a>
+								<p class="price"><strong>1.000.000</strong> <em>(-5%)</em></p>
+								<h3><a href="#">Sample product title</a></h3>
+								<p class="meta">đăng bởi <a href="#" class="meta-link">Dat Nguyen</a></p>
+							</div>
+							<div>
+								<a href="#" class="prod-img"><img src="images/sample-product-medium.jpg" alt="" /></a>
+								<p class="price"><strong>1.000.000</strong> <em>(-5%)</em></p>
+								<h3><a href="#">Sample product title</a></h3>
+								<p class="meta">đăng bởi <a href="#" class="meta-link">Dat Nguyen</a></p>
+							</div>
+							<div class="clear"></div>
+						</div>
+					</div>
+				</div>
+				
+				<div class="box">
+					<h3>Người bán đảm bảo</h3>
+					<div class="box-content">
+						<ul class="user-slider-large">
+							<li><a href="#"><img src="images/sample-user-large.jpg" alt="" /></a></li>
+							<li><a href="#"><img src="images/sample-user-large.jpg" alt="" /></a></li>
+							<li><a href="#"><img src="images/sample-user-large.jpg" alt="" /></a></li>
+							<li><a href="#"><img src="images/sample-user-large.jpg" alt="" /></a></li>
+							<li><a href="#"><img src="images/sample-user-large.jpg" alt="" /></a></li>
+							<li><a href="#"><img src="images/sample-user-large.jpg" alt="" /></a></li>
+							<li><a href="#"><img src="images/sample-user-large.jpg" alt="" /></a></li>
+							<li><a href="#"><img src="images/sample-user-large.jpg" alt="" /></a></li>
+						</ul>
+					</div>
+				</div>
+				
+			</div>
+			
+			<div id="sidebar">
+				<div class="box ads">
+					<a href="#"><img src="http://ugc.kontain.com/photo/20101118/prod_61b31d37-3afc-4e5e-8181-fbc114c0e735/tb_212x159.jpg" width="234px" height="120px" alt="" /></a>
+					<a href="#"><img src="http://adv.kontain.com/images/15945b1c64899f7ae37ad0d459d64164.jpg" width="234px" height="120px" alt="" /></a>
+					
+					<!--<a href="#"><img src="http://adv.kontain.com/images/b79b1217e8ca687c3a7ac2d165235a7a.jpg" width="234px" height="175px" alt="" /></a>-->
+					
+				</div>
+				
+				<div class="box">
+					<h3>Sản phẩm tài trợ</h3>
+					<div class="box-content">
+						<div class="prod-grid-small">
+							<div>
+								<a href="#" class="prod-img"><img src="images/sample-product-small.jpg" alt="" /></a>
+								<h3><a href="#">Sample product title</a></h3>
+								<p class="meta">đăng bởi <a href="#" class="meta-link">Dat Nguyen</a></p>
+								<p class="price"><strong>1.000.000</strong> <em>(-5%)</em></p>
+							</div>
+							<div>
+								<a href="#" class="prod-img"><img src="images/sample-product-small.jpg" alt="" /></a>
+								<h3><a href="#">Sample product title</a></h3>
+								<p class="meta">đăng bởi <a href="#" class="meta-link">Dat Nguyen</a></p>
+								<p class="price"><strong>1.000.000</strong> <em>(-5%)</em></p>
+							</div>
+							<div>
+								<a href="#" class="prod-img"><img src="images/sample-product-small.jpg" alt="" /></a>
+								<h3><a href="#">Sample product title</a></h3>
+								<p class="meta">đăng bởi <a href="#" class="meta-link">Dat Nguyen</a></p>
+								<p class="price"><strong>1.000.000</strong> <em>(-5%)</em></p>
+							</div>
+							<div>
+								<a href="#" class="prod-img"><img src="images/sample-product-small.jpg" alt="" /></a>
+								<h3><a href="#">Sample product title</a></h3>
+								<p class="meta">đăng bởi <a href="#" class="meta-link">Dat Nguyen</a></p>
+								<p class="price"><strong>1.000.000</strong> <em>(-5%)</em></p>
+							</div>
+							<div>
+								<a href="#" class="prod-img"><img src="images/sample-product-small.jpg" alt="" /></a>
+								<h3><a href="#">Sample product title</a></h3>
+								<p class="meta">đăng bởi <a href="#" class="meta-link">Dat Nguyen</a></p>
+								<p class="price"><strong>1.000.000</strong> <em>(-5%)</em></p>
+							</div>
+						</div>
+						<div class="clear"></div>
+					</div>
+				</div>
+				
+				<div class="box">
+					<h3>Hỏi đáp mới nhất</h3>
+					<div class="box-content">
+						<div class="recent-question">
+							<div>
+								<a href="#"><img src="images/sample-user-small.jpg" alt="" /></a>
+								<p class="meta"><a href="#"><strong>Dat Nguyen</strong></a> hỏi 3 phút trước</p>
+								<p>Adipiscing vel sed placerat magna risus ultricies ac. Habitasse hac sit tempor! Ut ut in. &bull; <a href="#">Trả lời</a></p>
+							</div>
+							<div>
+								<a href="#"><img src="images/sample-user-small.jpg" alt="" /></a>
+								<p class="meta"><a href="#"><strong>Dat Nguyen</strong></a> hỏi 3 phút trước</p>
+								<p>Tincidunt magnis lacus dis cras tortor. Facilisis egestas integer cras, urna augue eu a. &bull; <a href="#">Trả lời</a></p>
+							</div>
+							<div>
+								<a href="#"><img src="images/sample-user-small.jpg" alt="" /></a>
+								<p class="meta"><a href="#"><strong>Dat Nguyen</strong></a> hỏi 3 phút trước</p>
+								<p>Sagittis? Porta sit platea ac, dis a risus? Dolor. Elit hac? Sagittis adipiscing? Tortor. &bull; <a href="#">Trả lời</a></p>
+							</div>
+							<div>
+								<a href="#"><img src="images/sample-user-small.jpg" alt="" /></a>
+								<p class="meta"><a href="#"><strong>Dat Nguyen</strong></a> hỏi 3 phút trước</p>
+								<p>Penatibus penatibus in aenean cum etiam augue tristique ut magna lacus vut, magna non. &bull; <a href="#">Trả lời</a></p>
+							</div>
+							<div>
+								<a href="#"><img src="images/sample-user-small.jpg" alt="" /></a>
+								<p class="meta"><a href="#"><strong>Dat Nguyen</strong></a> hỏi 3 phút trước</p>
+								<p>Ultrices ridiculus tristique porta massa est auctor magna nisi elementum urna et magnis ut. &bull; <a href="#">Trả lời</a></p>
+							</div>
+						</div>
+					</div>
+				</div>
+				
+				<div class="box">
+					<h3>Buyme trên Facebook</h3>
+					<div class="box-content">lorem ipsum dolor sit amet</div>
+				</div>
+				
+				<div class="box">
+					<h3>lorem ipsum dolor sit amet</h3>
+					<div class="box-content">lorem ipsum dolor sit amet</div>
+				</div>
+			</div>
+			
+			<div class="clear"></div>
+		
+		</div>
+<!-- End contentWrapper -->
+
+{pyro:theme:partial file="footer"}
+
+</div>

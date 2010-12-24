@@ -9,18 +9,19 @@ class Module_Files extends Module {
 		return array(
 			'name' => array(
 				'en' => 'Files',
-				'br' => 'Files',
+				'pt' => 'Arquivos',
 				'de' => 'Dateien',
 				'nl' => 'Bestanden',
 				'fr' => 'Fichiers',
 				'zh' => '檔案',
 				'it' => 'File',
 				'ru' => 'Файлы',
-				'ar' => 'الملفّات'
+				'ar' => 'الملفّات',
+				'cs' => 'Soubory'
 			),
 			'description' => array(
 				'en' => 'Manages files and folders for your site.',
-				'br' => 'Permite gerenciar facilmente os arquivos de seu site.',
+				'pt' => 'Permite gerenciar facilmente os arquivos de seu site.',
 				'de' => 'Verwalte Dateien und Verzeichnisse.',
 				'nl' => 'Beheer bestanden en folders op uw website.',
 				'fr' => 'Gérer les fichiers et dossiers de votre site.',
@@ -28,6 +29,7 @@ class Module_Files extends Module {
 				'it' => 'Gestisci file e cartelle del tuo sito.',
 				'ru' => 'Управление файлами и папками вашего сайта.',
 				'ar' => 'إدارة ملفات ومجلّدات موقعك.',
+				'cs' => 'Spravujte soubory a složky na vašem webu.'
 			),
 			'frontend' => FALSE,
 			'backend'  => TRUE,

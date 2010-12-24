@@ -9,25 +9,27 @@ class Module_Groups extends Module {
 		return array(
 			'name' => array(
 				'en' => 'Groups',
-				'br' => 'Grupos',
+				'pt' => 'Grupos',
 				'de' => 'Gruppen',
 				'nl' => 'Groepen',
-                'fr' => 'Groupes',
+				'fr' => 'Groupes',
 				'zh' => '群組',
 				'it' => 'Gruppi',
 				'ru' => 'Группы',
-				'ar' => 'المجموعات'
+				'ar' => 'المجموعات',
+				'cs' => 'Skupiny'
 			),
 			'description' => array(
 				'en' => 'Users can be placed into groups to manage permissions.',
-				'br' => 'Usuários podem ser inseridos em grupos para gerenciar permissões.',
+				'pt' => 'Usuários podem ser inseridos em grupos para gerenciar suas permissões.',
 				'de' => 'Benutzer können zu Gruppen zusammengefasst werden um diesen Zugriffsrechte zu geben.',
 				'nl' => 'Gebruikers kunnen in groepen geplaatst worden om rechten te kunnen geven.',
 				'fr' => 'Les utilisateurs peuvent appartenir à des groupes afin de gérer les permissions.',
 				'zh' => '用戶可以依群組分類並管理其權限',
 				'it' => 'Gli utenti possono essere inseriti in gruppi per gestirne i permessi.',
 				'ru' => 'Пользователей можно объединять в группы, для управления правами доступа.',
-				'ar' => 'يمكن وضع المستخدمين في مجموعات لتسهيل إدارة صلاحياتهم.'
+				'ar' => 'يمكن وضع المستخدمين في مجموعات لتسهيل إدارة صلاحياتهم.',
+				'cs' => 'Uživatelé mohou být rozřazeni do skupin pro lepší správu oprávnění.'
 			),
 			'frontend' => FALSE,
 			'backend'  => TRUE,

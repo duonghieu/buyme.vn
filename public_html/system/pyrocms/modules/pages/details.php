@@ -9,29 +9,9 @@ class Module_Pages extends Module {
 		return array(
 			'name' => array(
 				'en' => 'Pages',
-				'nl' => 'Pagina&apos;s',
-				'es' => 'Páginas',
-				'fr' => 'Pages',
-				'de' => 'Seiten',
-				'pl' => 'Strony',
-				'br' => 'Páginas',
-				'zh' => '頁面',
-				'it' => 'Pagine',
-				'ru' => 'Страницы',
-				'ar' => 'الصفحات'
 			),
 			'description' => array(
 				'en' => 'Add custom pages to the site with any content you want.',
-				'nl' => "Voeg aangepaste pagina&apos;s met willekeurige inhoud aan de site toe.",
-				'pl' => 'Dodaj własne strony z dowolną treścią do witryny.',
-				'es' => 'Agrega páginas customizadas al sitio con cualquier contenido que tu quieras.',
-				'fr' => "Permet d'ajouter sur le site des pages personalisées avec le contenu que vous souhaitez.",
-				'de' => 'Füge eigene Seiten mit anpassbaren Inhalt hinzu.',
-				'br' => 'Adicionar páginas personalizadas ao site com qualquer conteúdo que você queira.',
-				'zh' => '為您的網站新增自定的頁面。',
-				'it' => 'Aggiungi pagine personalizzate al sito con qualsiesi contenuto tu voglia.',
-				'ru' => 'Управление информационными страницами сайта, с произвольным содержимым.',
-				'ar' => 'إضافة صفحات مُخصّصة إلى الموقع تحتوي أية مُحتوى تريده.'
 			),
 			'frontend' => TRUE,
 			'backend'  => TRUE,
@@ -105,7 +85,7 @@ class Module_Pages extends Module {
 
 		$default_page_layouts = "
 			INSERT INTO `page_layouts` (`id`, `title`, `body`, `css`, `updated_on`) VALUES
-			(1, 'Default', '<h2>{pyro:page:title}</h2>\n\n\n{pyro:page:body}', '', ".time().");
+			(1, 'Default', '{pyro:page:body}', '', ".time().");
 		";
 
 		$default_pages = "

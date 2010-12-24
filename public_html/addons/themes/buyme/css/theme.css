@@ -1,0 +1,17 @@
+body {
+	background: #c1deee url(images/bg.png) fixed no-repeat 50% 0;
+}
+#wrapper {
+}
+#logo {
+}
+#sub-nav {
+}
+#sub-nav li {
+	border: 0 !important;
+}
+#sub-nav li a {
+	
+}
+#sub-nav li.active a {
+}

@@ -65,7 +65,8 @@ jQuery(function($) {
 		});
 
 		// Confirmation
-		$("a.confirm").live('click', function(){
+		$("a.confirm").live('click', function(e){
+			var href = $(this).attr("href");
 			removemsg = $(this).attr("title");
 	
 			if (removemsg != 'undefined')
@@ -84,20 +85,54 @@ jQuery(function($) {
 				msg = DIALOG_MESSAGE;
 			}
 
-			if(confirm(msg))
+			if(!confirm(msg))
 			{
-				window.location.href = $(this).attr("href");
+				e.preventDefault();
+			}
+			else
+			{
+				//submits it whether uniform likes it or not
+				window.location.href = href;
 			}
 		});
 
-                //make page buttons work
-                $('a.button, a.minibutton').live('click', function() {
-                    var href = $(this).attr("href");
-                    if(href.indexOf('delete') < 0)
-                    {
-                         window.location.href = href;
-                    }
-                });
+		//make page buttons work (fixes a uniform bug in FF)
+		$('a.button, a.minibutton').live('click', function() {
+		  var href = $(this).attr("href");
+		  if($(this).hasClass('confirm') === false && $(this).hasClass('colorbox') === false)
+		  {
+			window.location.href = href;
+		  }
+		});
+		
+		//use a confirm dialog on "delete many" buttons
+		$(':button.button').live('click', function(e) {
+			if($(this).val() == 'delete')
+			{
+				removemsg = $(this).attr("title");
+				
+				if (removemsg != 'undefined')
+				{
+					if(removemsg.length <= 0)
+					{
+						msg = DIALOG_MESSAGE;
+					}
+					else
+					{
+						msg = removemsg;
+					}
+				}
+				else
+				{
+					msg = DIALOG_MESSAGE;
+				}
+				
+				if(!confirm(msg))
+				{
+					e.preventDefault();
+				}
+			}
+		});
 
 		// Table zerbra striping
 		$("tbody tr:nth-child(even)").livequery(function () {

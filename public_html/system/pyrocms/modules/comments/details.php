@@ -9,7 +9,7 @@ class Module_Comments extends Module {
 		return array(
 			'name' => array(
 				'en' => 'Comments',
-				'br' => 'Comentários',
+				'pt' => 'Comentários',
 				'nl' => 'Reacties',
 				'es' => 'Comentarios',
 				'fr' => 'Commentaires',
@@ -22,7 +22,7 @@ class Module_Comments extends Module {
 			),
 			'description' => array(
 				'en' => 'Users and guests can write comments for content like news, pages and photos.',
-				'br' => 'Usuários e convidados podem escrever comentários para quase tudo com suporte nativo ao captcha.',
+				'pt' => 'Usuários e convidados podem escrever comentários para quase tudo com suporte nativo ao captcha.',
 				'nl' => 'Gebruikers en gasten kunnen reageren op bijna alles.',
 				'es' => 'Los usuarios y visitantes pueden escribir comentarios en casi todo el contenido con el soporte de un sistema de captcha incluído.',
 				'fr' => 'Les utilisateurs et les invités peuvent écrire des commentaires pour quasiment tout grâce au générateur de captcha intégré.',
@@ -82,7 +82,13 @@ class Module_Comments extends Module {
 	{
 		// Return a string containing help info
 		// You could include a file and return it here.
-		return "No documentation has been added for this module.";
+		return "<h4>Overview</h4>
+		<p>The comments module allows visitors to comment on any part of your website that you enable comments for.</p>
+		<h4>Enabling Comments</h4><hr>
+		<p>Comments can be enabled in Pages, Galleries, and News. If you want to moderate comments you must enable
+		comment moderation in Settings.</p>
+		<h4>Comment Moderation</h4><hr>
+		<p>Comments may be Approved or Unapproved at any time from the admin panel. If you approve a comment and later want to unapprove it you may do so.</p>";
 	}
 
 }

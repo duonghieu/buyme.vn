@@ -1,0 +1,21 @@
+ <!-- saved from url=(0014)about:internet -->
+
+<!-- Begin head -->
+<head>
+
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+{pyro:template:metadata}
+
+{theme_css('reset.css')}
+{theme_css('base.css')}
+{theme_css('layout.css')}
+{theme_css('styles.css')}
+
+<!--[if lte IE 6]>
+	{theme_css('iehacks.css')}
+<![endif]-->
+
+
+<title>{pyro:settings:site_name}&nbsp;&bull;&nbsp;{pyro:template:title}</title>
+
+</head>

@@ -13,6 +13,12 @@
 | always be used to set the mode correctly.
 |
 */
+
+define('DAL_PATH', 'system/buyme/dal/dal.php');
+define('BLL_PATH', 'system/buyme/bll/');
+
+
+
 define('FILE_READ_MODE', 0644);
 define('FILE_WRITE_MODE', 0666);
 define('DIR_READ_MODE', 0755);
@@ -111,7 +117,7 @@ unset($base_uri, $base_url);
 |
 */
 
-define('CMS_VERSION', '1.0.0');
+define('CMS_VERSION', '1.0.1');
 
 /*
 |--------------------------------------------------------------------------
@@ -122,7 +128,7 @@ define('CMS_VERSION', '1.0.0');
 |
 */
 
-define('CMS_DATE', '26/11/2010');
+define('CMS_DATE', '29/11/2010');
 
 /* End of file constants.php */
 /* Location: ./system/application/config/constants.php */

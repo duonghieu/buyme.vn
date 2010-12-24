@@ -1,0 +1,32 @@
+#nav a span {
+	filter: alpha("opacity=50");
+}
+#nav li.active ul a:hover {
+	background-color: #eee;
+}
+#nav li ul {
+	background-color: #fff;
+}
+
+#sub-nav li div {
+	background-color: #fff;
+}
+.prod-grid-small div {
+	height: 80px;
+	margin-bottom:0;
+}
+.browse-list .browse-item {
+	height: 82px;
+}
+#header .user-summary {
+	height: 80px;
+}
+.pager {
+	height: 30px;
+}
+.c33 {
+	margin-left: -1px;
+}
+.c25 {
+	margin-left: -1px;
+}

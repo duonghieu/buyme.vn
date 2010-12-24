@@ -30,6 +30,7 @@ class Tags
 	private $_r_delim = '}';
 	private $_mark = 'k0dj3j4nJHDj22j';
 	private $_tag_count = 0;
+	private $_current_callback = array();
 
 	// --------------------------------------------------------------------
 
@@ -105,8 +106,15 @@ class Tags
 	 */
 	public function parse($content, $data = array(), $callback = array())
 	{
-		$orig_content = $this->parse_globals($content, $data);
+		$this->_current_callback = $callback;
+		if (trim($this->_trigger) == '')
+		{
+			throw new Exception('You must set a trigger before you can parse the content.');
 
+			return $content;
+		}
+
+		$orig_content = $this->parse_globals($content, $data);
 
 		$open_tag_regex = $this->_l_delim.$this->_trigger.'.*?'.$this->_r_delim;
 
@@ -184,7 +192,11 @@ class Tags
 				// Parse the double tags
 				else
 				{
-					$return_data = $this->_parse_data_double($tag, $data);
+					$return_data = FALSE;
+					if (array_key_exists($tag['segments'][0], $data))
+					{
+						$return_data = $this->_parse_data_double($tag, $data);
+					}
 				}
 
 				// If the tag referenced data then put that data in the content
@@ -222,6 +234,11 @@ class Tags
 
 	public function parse_conditionals($content)
 	{
+		if (strpos($content, '{if ') === false)
+		{
+			return $content;
+		}
+
 		preg_match_all('#{if (.*?)}#i', $content, $matches, PREG_OFFSET_CAPTURE);
 
 		$len_offset = 0;
@@ -292,7 +309,7 @@ class Tags
 			{
 				$value = (array) $value;
 			}
-			
+
 			if ( ! is_array($value))
 			{
 				$content = str_replace('{'.$var.'}', $value, $content);
@@ -367,19 +384,28 @@ class Tags
 	private function _parse_data_double($tag, $data)
 	{
 		$return_data = '';
+		$new_data = $data;
 		foreach ($tag['segments'] as $segment)
 		{
-			if ( ! is_array($data) OR ! isset($data[$segment]))
+			if ( ! is_array($new_data) OR ! isset($new_data[$segment]))
 			{
 				return FALSE;
 			}
-			$data = $data[$segment];
+			$new_data = $new_data[$segment];
 		}
-
 		$temp = new Tags;
-		foreach ($data as $val)
+		$temp->set_trigger($this->_trigger);
+		foreach ($new_data as $val)
 		{
-			$return = $temp->parse($tag['content'], $val);
+			if ( ! is_array($val))
+			{
+				$val = array($val);
+			}
+
+			// We add the array element to the full data array so that full data
+			// tags can work within double data tags
+			$val = $val + $data;
+			$return = $temp->parse($tag['content'], $val, $this->_current_callback);
 			$return_data .= $return['content'];
 		}
 		unset($temp);

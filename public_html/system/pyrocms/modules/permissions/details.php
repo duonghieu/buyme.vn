@@ -14,11 +14,12 @@ class Module_Permissions extends Module {
 				'fr' => 'Permissions',
 				'de' => 'Zugriffsrechte',
 				'pl' => 'Uprawnienia',
-				'br' => 'Permissões',
+				'pt' => 'Permissões',
 				'zh' => '權限',
 				'it' => 'Permessi',
 				'ru' => 'Права доступа',
-				'ar' => 'الصلاحيات'
+				'ar' => 'الصلاحيات',
+				'cs' => 'Oprávnění'
 			),
 			'description' => array(
 				'en' => 'Control what type of users can see certain sections within the site.',
@@ -27,11 +28,12 @@ class Module_Permissions extends Module {
 				'es' => 'Controla que tipo de usuarios pueden ver secciones específicas dentro del sitio.',
 				'fr' => 'Permet de définir les autorisations des groupes d\'utilisateurs pour afficher les différentes sections.',
 				'de' => 'Regelt welche Art von Benutzer welche Sektion in der Seite sehen kann.',
-				'br' => 'Controle quais tipos de usuários podem ver certas seções no site.',
+				'pt' => 'Controle quais tipos de usuários podem ver certas seções no site.',
 				'zh' => '用來控制不同類別的用戶，設定其瀏覽特定網站內容的權限。',
 				'it' => 'Controlla che tipo di utenti posssono accedere a determinate sezioni del sito.',
 				'ru' => 'Управление правами доступа, ограничение доступа определённых групп пользователей к произвольным разделам сайта.',
-				'ar' => 'التحكم بإعطاء الصلاحيات للمستخدمين للوصول إلى أقسام الموقع المختلفة.'
+				'ar' => 'التحكم بإعطاء الصلاحيات للمستخدمين للوصول إلى أقسام الموقع المختلفة.',
+				'cs' => 'Spravujte oprávnění pro jednotlivé typy uživatelů a ke kterým sekcím mají přístup.'
 			),
 			'frontend' => FALSE,
 			'backend'  => TRUE,

@@ -31,27 +31,37 @@ class Plugin_Navigation extends Plugin
 		$links = $this->cache->model('navigation_m', 'load_group', array($group), $this->settings->navigation_cache);
 
 		$list = '';
+		$array = array();
 
 		if ($links)
 		{
 			$i = 1;
 			foreach ($links as $link)
 			{
-				$attributes['target'] = $link->target;
+				if(!empty($link->target)) $attributes['target'] = $link->target;
 				$attributes['class']  = $link->class;
 
 				if (current_url() == $link->url)
 				{
 					$attributes['class'] .= ' '.$current_class;
 				}
-				
-				$list .= '<'.$tag.'>' . anchor($link->url, $link->title, $attributes). '</'.$tag.'>'.PHP_EOL;
-				if ($separator AND count($links) > $i) $list .= $separator;
-				$i++;
+
+				// Just return data
+				if ($this->content())
+				{
+					$array[] = $attributes + array('url' => $link->url, 'title' => $link->title);
+				}
+
+				else
+				{
+					$list .= '<'.$tag.'>' . anchor($link->url, $link->title, $attributes). '</'.$tag.'>'.PHP_EOL;
+					if ($separator AND count($links) > $i) $list .= $separator;
+					$i++;
+				}
 			}
 		}
 
-    	return $list;
+    	return $this->content() ? $array : $list;
 	}
 }
 
